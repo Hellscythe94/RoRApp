@@ -1,7 +1,8 @@
 class RoRWorker
   include Sidekiq::Worker
+  sidekiq_options retry: false
 
-  def perform(*args)
-    puts "Worker doing worker stuff"
+  def perform(anArgument)
+    puts "Worker doing worker stuff using its very special #{anArgument}"
   end
 end
