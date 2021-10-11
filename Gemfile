@@ -28,6 +28,8 @@ gem 'sinatra', require: nil
 gem 'haml'
 gem 'crono'
 
+gem 'jquery-rails'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
