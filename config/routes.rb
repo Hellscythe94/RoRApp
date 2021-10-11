@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => "/sidekiq"
+
+  require 'crono/web'
   mount Crono::Web, at: '/crono'
 
   root to: "pages#homepage"
