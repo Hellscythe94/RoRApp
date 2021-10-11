@@ -23,7 +23,10 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'sidekiq'
-gem 'sinatra', github: 'sinatra/sinatra'
+gem 'sinatra', require: nil
+
+gem 'haml'
+gem 'crono'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
