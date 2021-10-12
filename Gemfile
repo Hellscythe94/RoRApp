@@ -29,6 +29,7 @@ gem 'haml'
 gem 'crono'
 
 gem 'jquery-rails'
+gem 'aws-healthcheck'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

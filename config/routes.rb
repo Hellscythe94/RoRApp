@@ -9,4 +9,5 @@ Rails.application.routes.draw do
 
   get "/rorapp" => "rorapp#index", as: "ror_index"
   get "/rorapp/ror" => "rorapp#ror", as: "ror_report"
+  get "/healthcheck", to: HealthController.action(:index)
 end
