@@ -1,0 +1,64 @@
+version: "3.9"
+
+x-base: 
+  &baseimage
+  depends_on:
+    - 'redis'
+    - 'postgres'
+  # enviroment:
+  #   - REDIS_URL=redis://redis:6379
+  #   - DATABASE_URL=postgres://ror:SuperSecurePassword@postgres:5432/RoRApp_development
+  #   - PORT='3000'
+  #   - RAILS_ENV='development'
+  build:
+    context: .
+    args:
+      - redisurl=redis://redis:6379
+      - postgreurl=postgres://ror:SuperSecurePassword@postgres:5432/ror_db
+      - port=3000
+      - railsenv=development
+  image: rorapp:1.0
+
+
+services:
+  rails: 
+    <<: *baseimage
+    command: puma
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
+    depends_on:
+      - 'migrations'
+
+  migrations:
+    <<: *baseimage
+    command: rake db:migrate
+  
+  crono:
+    <<: *baseimage
+    command: bundle exec crono
+    depends_on:
+      - 'migrations'
+
+  sidekiq:
+    <<: *baseimage
+    command: sidekiq
+
+  redis:
+    image: 'redis:6.2.6'
+    volumes: 
+      - 'redis:/data'
+
+  postgres:
+    image: 'postgres:14'
+    volumes:
+      - 'postgres:/usr/local/var/postgres'
+    environment:
+      POSTGRES_DB: 'ror_db'
+      POSTGRES_USER: 'ror'
+      POSTGRES_PASSWORD: 'SuperSecurePassword'
+
+volumes:
+  redis:
+  postgres:
